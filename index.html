@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="/public/JS/angular.min.js"></script>
+  <script src="/public/JS/app.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div ng-app="hotelApp">
+    <div ng-controller="getHotelsCtrl">
+      <h2>Search :</h2>
+      <div class="col-md-12">
+        <ng-form name="searchForm" novalidate>
+          <br />
+          <div class="row">
+            <div class="form-group col-md-4" ng-class="{'has-error':searchForm.destinationName.$invalid && (searchForm.destinationName.$dirty || searchForm.$submitted), 'has-success':searchForm.destinationName.$valid}">
+              <label>Destination Name</label>
+              <input type="text"
+              ng-model="item.destinationName"
+              class="form-control" name="destinationName">
+            </div>
+
+            <div class="form-group col-md-4" ng-class="{'has-error':searchForm.regionIds.$invalid && (searchForm.regionIds.$dirty || searchForm.$submitted), 'has-success':searchForm.regionIds.$valid}">
+                <label>Region Ids</label>
+                <input type="text"
+                       ng-model="item.regionIds"
+                       class="form-control" name="regionIds"
+                       pattern="[0-9]{1,14}" maxlength="50">
+                <span class="error text-small block" ng-if="searchForm.regionIds.$invalid && !searchForm.regionIds.$error.required && (searchForm.regionIds.$dirty || searchForm.$submitted)">Only Number</span>
+            </div>
+
+            <div class="form-group col-md-4" ng-class="{'has-error':searchForm.minTripStartDate.$invalid && (searchForm.minTripStartDate.$dirty || searchForm.$submitted), 'has-success':searchForm.minTripStartDate.$valid}">
+              <label>Min Trip Start Date</label>
+              <input type="date"
+              ng-model="minTripStartDate"
+              class="form-control" name="minTripStartDate">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-4" ng-class="{'has-error':searchForm.lengthOfStay.$invalid && (searchForm.lengthOfStay.$dirty || searchForm.$submitted), 'has-success':searchForm.lengthOfStay.$valid}">
+                <label>Length Of Stay</label>
+                <input type="text"
+                       ng-model="item.lengthOfStay"
+                       class="form-control" name="lengthOfStay"
+                       pattern="[0-9]{1,14}" maxlength="50">
+                <span class="error text-small block" ng-if="searchForm.lengthOfStay.$invalid && !searchForm.lengthOfStay.$error.required && (searchForm.lengthOfStay.$dirty || searchForm.$submitted)">Only Number</span>
+            </div>
+
+            <div class="form-group col-md-4" ng-class="{'has-error':searchForm.minStarRating.$invalid && (searchForm.minStarRating.$dirty || searchForm.$submitted), 'has-success':searchForm.minStarRating.$valid}">
+                <label>Min Star Rating</label>
+                <input type="text"
+                       ng-model="item.minStarRating"
+                       class="form-control" name="minStarRating"
+                       pattern="[0-9]{1,14}" maxlength="50">
+                <span class="error text-small block" ng-if="searchForm.minStarRating.$invalid && !searchForm.minStarRating.$error.required && (searchForm.minStarRating.$dirty || searchForm.$submitted)">Only Number</span>
+            </div>
+
+            <div class="form-group col-md-4" ng-class="{'has-error':searchForm.maxStarRating.$invalid && (searchForm.maxStarRating.$dirty || searchForm.$submitted), 'has-success':searchForm.maxStarRating.$valid}">
+                <label>Max Star Rating</label>
+                <input type="text"
+                       ng-model="item.maxStarRating"
+                       class="form-control" name="maxStarRating"
+                       pattern="[0-9]{1,14}" maxlength="50">
+                <span class="error text-small block" ng-if="searchForm.maxStarRating.$invalid && !searchForm.maxStarRating.$error.required && (searchForm.maxStarRating.$dirty || searchForm.$submitted)">Only Number</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-4" ng-class="{'has-error':searchForm.maxTotalRate.$invalid && (searchForm.maxTotalRate.$dirty || searchForm.$submitted), 'has-success':searchForm.maxTotalRate.$valid}">
+                <label>Max Total Rate</label>
+                <input type="text"
+                       ng-model="item.maxTotalRate"
+                       class="form-control" name="maxTotalRate"
+                       pattern="[0-9]{1,14}" maxlength="50">
+                <span class="error text-small block" ng-if="searchForm.maxTotalRate.$invalid && !searchForm.maxTotalRate.$error.required && (searchForm.maxTotalRate.$dirty || searchForm.$submitted)">Only Number</span>
+            </div>
+
+            <div class="form-group col-md-4" ng-class="{'has-error':searchForm.minTotalRate.$invalid && (searchForm.minTotalRate.$dirty || searchForm.$submitted), 'has-success':searchForm.minTotalRate.$valid}">
+                <label>Min Total Rate</label>
+                <input type="text"
+                       ng-model="item.minTotalRate"
+                       class="form-control" name="minTotalRate"
+                       pattern="[0-9]{1,14}" maxlength="50">
+                <span class="error text-small block" ng-if="searchForm.minTotalRate.$invalid && !searchForm.minTotalRate.$error.required && (searchForm.minTotalRate.$dirty || searchForm.$submitted)">Only Number</span>
+            </div>
+
+            <div class="form-group col-md-4" ng-class="{'has-error':searchForm.maxGuestRating.$invalid && (searchForm.maxGuestRating.$dirty || searchForm.$submitted), 'has-success':searchForm.maxGuestRating.$valid}">
+                <label>Max Guest Rating</label>
+                <input type="text"
+                       ng-model="item.maxGuestRating"
+                       class="form-control" name="maxGuestRating"
+                       pattern="[0-9]{1,14}" maxlength="50">
+                <span class="error text-small block" ng-if="searchForm.maxGuestRating.$invalid && !searchForm.maxGuestRating.$error.required && (searchForm.maxGuestRating.$dirty || searchForm.$submitted)">Only Number</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-4" ng-class="{'has-error':searchForm.minGuestRating.$invalid && (searchForm.minGuestRating.$dirty || searchForm.$submitted), 'has-success':searchForm.minGuestRating.$valid}">
+                <label>Min Guest Rating</label>
+                <input type="text"
+                       ng-model="item.minGuestRating"
+                       class="form-control" name="minGuestRating"
+                       pattern="[0-9]{1,14}" maxlength="50">
+                <span class="error text-small block" ng-if="searchForm.minGuestRating.$invalid && !searchForm.minGuestRating.$error.required && (searchForm.minGuestRating.$dirty || searchForm.$submitted)">Only Number</span>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <button type="button" ng-click="searchForm.$submitted = true;  searchForm.$valid && submit()" class="btn btn-primary">
+              Search
+            </button>
+          </div>
+        </ng-form>
+      </div>
+      <br/><br/><br/>
+      <div class="col-md-12">
+        <div class="well" ng-repeat="item in Offers">
+          <div class="row">
+            <div class="col-md-2">
+              <img src="{{item.hotelInfo.hotelImageUrl}}" style="width:100px;height:100px;">
+            </div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6">
+                  <strong>Hotel Name</strong> : {{item.hotelInfo.hotelName}} <br/>
+                  <strong>Country</strong> : {{item.destination.country}} <br/>
+                  <strong>City</strong> : {{item.hotelInfo.hotelCity}} <br/>
+                  <strong>Hotel Street Address</strong> : {{item.hotelInfo.hotelStreetAddress}} <br/>
+                  <strong>Average Price Value</strong> : {{item.hotelPricingInfo.averagePriceValue}}  {{item.hotelPricingInfo.currency}}
+                </div>
+                <div class="col-md-6">
+                  <strong>Hotel Star Rating</strong>
+                  <h2>
+                    {{item.hotelInfo.hotelStarRating}}
+                  </h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
