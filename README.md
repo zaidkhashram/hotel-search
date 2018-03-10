@@ -1,1 +1,1 @@
-just open localhost:3030
+https://agile-inlet-15346.herokuapp.com/
