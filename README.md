@@ -1,1 +1,1 @@
-# hotel-search
+just open localhost:3030
